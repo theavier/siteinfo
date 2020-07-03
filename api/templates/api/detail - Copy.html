@@ -1,0 +1,26 @@
+<h1>Whois</h1>
+
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+{% if siteurl %}
+ Query ran on :{{ siteurl }}
+{% else %}
+   Query hasn't run
+{% endif %}
+
+Count: {{count}}<br/>
+Type: {{type}}<br/>
+Raw: 
+{{results}}
+{% if results %}
+
+<p>got results
+<table border=1>
+{% for result in result|get_item:item.NAME %}
+	<tr><td>{{result}}</td></tr>
+{% endfor %}
+</table>
+</p>
+{% else %}
+nothing returned
+{% endif %}

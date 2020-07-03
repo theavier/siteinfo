@@ -1,0 +1,32 @@
+{% extends 'api/base.html' %}
+
+{# load the tag library #}
+{% load bootstrap4 %}
+
+
+{% block content %}
+{% if error_message %}
+<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+
+{% if results %}
+<div class="alert alert-success" roles="alert">
+ <div class="container">
+<table class="table">
+{% for result in results %}
+<tr><td scope="row">  
+	{{result}}
+</td></tr>
+ {% endfor %}
+</table></div></div>
+{% else %}
+<div class="alert alert-warning" roles="alert">
+   Nothing returned
+   </div>
+{% endif %}
+{% endblock %}
+
+
+
+
+

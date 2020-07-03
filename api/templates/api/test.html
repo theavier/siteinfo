@@ -1,0 +1,47 @@
+{% extends 'api/base.html' %}
+
+{# load the tag library #}
+{% load bootstrap4 %}
+
+{% block title %}
+test
+{% endblock %}
+
+{% block content %}
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+icontest: 
+<i class="material-icons">face</i>
+<i class="material-icons">admin_panel_settings</i>
+<div class="container">
+got results
+</div>
+{% bootstrap_button 'button' size='lg' %}
+<hr>
+{% bootstrap_alert "Something went wrong (Bootstrap alert" alert_type='danger' %}
+<!-- different alert boxes -->
+<div class="alert alert-primary" roles="alert">Something has happend</div>
+<div class="alert alert-success" roles="alert">All is well</div>
+<div class="alert alert-warning" roles="alert">Yikes, a warning</div>
+
+<!-- badges -->
+<h2>heading with something <span class="badge badge-secondary">New</span></h2>
+<h2>heading with something <span class="badge badge-success">New</span></h2>
+
+<div class="p-3 mb-2 bg-info text-white">.bg-info</div>
+
+<!-- tables -->
+<div class="container">
+<table class="table table-striped table-dark">
+<tr><th scope="row">Header</td></tr>
+<tr><td scope="row">Row</td></tr>
+<tr><td scope="row">Row2</td></tr>
+</table></div>
+
+{% endblock %}
+
+
+
+
+
+
