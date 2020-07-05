@@ -12,13 +12,22 @@
 {% if results %}
 <div class="alert alert-success" roles="alert">
  <div class="container">
-<table class="table">
+<div class="card-columns">
 {% for result in results %}
-<tr><td scope="row">  
-	{{result}}
-</td></tr>
+<div class="card" style="width: 18rem;">
+<div class="card-body">
+<h5 class="card-title">{{ result.name }}</h5>
+	<p class="card-text">{{ result.url }}</p>
+</div>
+<div class="card-footer bg-transparent border-dark">
+<center>
+           <a href="" class="btn btn-warning">edit</a>
+           <a href="" class="btn btn-danger">delete</a>
+        </center>
+</div>
+</div>
  {% endfor %}
-</table></div></div>
+</div></div>
 {% else %}
 <div class="alert alert-warning" roles="alert">
    Nothing returned

@@ -1,0 +1,22 @@
+{% extends 'api/base.html' %}
+{# load the tag library #}
+{% load bootstrap4 %}
+
+    {% block content %}
+        <center>
+        <h1 class="display-3">Add site</h1>
+        <form method = 'POST' enctype="multipart/form-data">
+            {% csrf_token %}
+			<div class="p-3 mb-2 bg-info">
+            
+                {% for field in add_form %}
+                <div class="form-row">
+                    <div class="col-md-4 mb-3">{{field.label}}</div>
+                    <div class="col-md-4 mb-3">{{ field }}</div>
+                </div>
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn btn-lg btn-warning">Submit</button>
+        </form>
+    </center>
+    {% endblock %}

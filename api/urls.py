@@ -12,5 +12,6 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('whois/<siteurl>', views.whois, name='whois'),
     path('test/', views.test, name='test'),
-    path('list/', views.sitelist, name='sitelist')    
+    path('list/', views.sitelist, name='sitelist'),
+    path('add/', views.site_add, name='add'),    
 ]

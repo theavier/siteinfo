@@ -1,7 +1,8 @@
 from rest_framework import viewsets
 from .serializers import SiteSerializer
 from .models import Site
-from django.shortcuts import render
+from .forms import AddSite
+from django.shortcuts import render, redirect
 from .backbone import queryDomain
 from django.template.defaulttags import register
 
@@ -12,6 +13,18 @@ class SiteViewSet(viewsets.ModelViewSet):
 def sitelist(request):
     result = Site.objects.all().order_by('name')
     return render(request, 'api/list.html',{'results':result, 'title':'sitelist'})
+
+def site_add(request):
+    add = AddSite()
+    if request.method == 'POST':
+        add = AddSite(request.POST, request.FILES)
+        if add.is_valid():
+            add.save()
+            return redirect('sitelist')
+        else:
+            return HttpResponse("""your form is wrong, reload on <a href = "{{ url : 'index'}}">reload</a>""")
+    else:
+        return render(request, 'api/add_form.html', {'add_form':add})
 
 def whois(request, siteurl):
     if siteurl:
