@@ -19,4 +19,4 @@ RUN pip install -r ${CONFIG_ROOT}/requirements.txt
 WORKDIR ${APP_ROOT}
 COPY . .
 #run application
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8000"]
