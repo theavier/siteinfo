@@ -1,0 +1,66 @@
+{
+  "Query": {
+    "https://www.dataman.se/": [
+      {
+        "app": "Nginx",
+        "type": "Web Servers,Reverse Proxy",
+        "ver": "1.15.8"
+      },
+      {
+        "app": "PHP",
+        "type": "Programming Languages",
+        "ver": "7.2.12"
+      },
+      {
+        "app": "WordPress",
+        "type": "CMS,Blogs",
+        "ver": null
+      },
+      {
+        "app": "jQuery",
+        "type": "JavaScript Libraries",
+        "ver": null
+      },
+      {
+        "app": "jQuery Migrate",
+        "type": "JavaScript Libraries",
+        "ver": "\\2"
+      },
+      {
+        "app": "Swiper Slider",
+        "type": "Miscellaneous",
+        "ver": null
+      },
+      {
+        "app": "Elementor",
+        "type": "Landing Page Builders",
+        "ver": null
+      },
+      {
+        "app": "Google Font API",
+        "type": "Font Scripts",
+        "ver": null
+      },
+      {
+        "app": "Google Tag Manager",
+        "type": "Tag Managers",
+        "ver": null
+      },
+      {
+        "app": "WordPress Super Cache",
+        "type": "Cache Tools",
+        "ver": null
+      },
+      {
+        "app": "Yoast SEO",
+        "type": "SEO",
+        "ver": "14.4.1"
+      },
+      {
+        "app": "MySQL",
+        "type": "Databases",
+        "ver": null
+      }
+    ]
+  }
+}

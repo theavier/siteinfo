@@ -13,5 +13,6 @@ urlpatterns = [
     path('whois/<siteurl>', views.whois, name='whois'),
     path('test/', views.test, name='test'),
     path('list/', views.sitelist, name='sitelist'),
-    path('add/', views.site_add, name='add'),    
+    path('add/', views.site_add, name='add'),
+    path('whatis/<siteurl>', views.whatis, name='whatis'),    
 ]

@@ -2,6 +2,7 @@ import os
 import json
 import sys
 import re
+import subprocess
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -52,3 +53,29 @@ def queryDomain(domain,format="json"):
 #result = queryDomain("alnet.se")
 #print(result)
 #print(BASE_DIR)
+
+def whatis_query(domain):
+    if not domain.startswith("https") and not domain.startswith("http"):
+        domain = "https://"+domain
+    if (sys.platform == "linux"):
+        cmd = "wad -u "+domain
+        try:
+            proc = subprocess.Popen([cmd], stdout=subprocess.PIPE, shell=True, universal_newlines=True)
+            (out, err) = proc.communicate()
+            return out
+        except:
+            return "Something went wrong"+err
+    else:
+        #return "Unsupported platform"
+        fake_data = whatis_fake()
+        return fake_data
+
+def whatis_fake():
+    file = os.path.join(BASE_DIR, 'fake.json')
+    print(file)
+    with open(file) as json_file:
+        data = json.load(json_file)
+    return data
+
+#testresult = whatis_fake()
+#print(testresult)

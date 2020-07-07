@@ -3,7 +3,7 @@ from .serializers import SiteSerializer
 from .models import Site
 from .forms import AddSite
 from django.shortcuts import render, redirect
-from .backbone import queryDomain
+from .backbone import queryDomain, whatis_query
 from django.template.defaulttags import register
 
 class SiteViewSet(viewsets.ModelViewSet):
@@ -46,6 +46,12 @@ def whois(request, siteurl):
             'siteurl': siteurl,
             'error_message': "Something went wrong",
         })
+
+def whatis(request, siteurl):
+    if siteurl:
+        result_json = whatis_query(siteurl)
+        return render(request, 'api/whatis.html', {'title':'Whatis','results': result_json})
+    
 
 def test(request):
     return render(request, 'api/test.html')
