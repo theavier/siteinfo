@@ -25,5 +25,5 @@ RUN python manage.py migrate
 #run application
 #ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 #ENTRYPOINT ["gunicorn", --"bind", "8000", "siteinfo.wsgi:application" 
-RUN chmod +x ${APP_ROOT}/entrypoint.sh
-ENTRYPOINT ${APP_ROOT}/entrypoint.sh
+RUN chmod +x ./entrypoint.sh
+ENTRYPOINT ["./entrypoint.sh"]
