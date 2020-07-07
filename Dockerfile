@@ -2,7 +2,7 @@
 FROM python:3
 
 # set work directory
-COMMAND mkdir /code
+RUN mkdir /code
 WORKDIR /code
 
 # set environment variables
