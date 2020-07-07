@@ -14,9 +14,14 @@ RUN mkdir ${APP_ROOT}
 RUN pip install --upgrade pip
 COPY requirements.txt ${CONFIG_ROOT}/
 RUN pip install -r ${CONFIG_ROOT}/requirements.txt
+RUN pip install gunicorn 
 
 # copy project
 WORKDIR ${APP_ROOT}
 COPY . .
+#update database
+RUN python manage.py makemigrations api
+RUN python manage.py migrate
 #run application
-ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+#ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+ENTRYPOINT ["gunicorn", --"bind", "8000", "siteinfo.wsgi:application" 
