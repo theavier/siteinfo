@@ -1,19 +1,22 @@
 # pull official base image
-FROM python:3
-
-# set work directory
-RUN mkdir /code
-WORKDIR /code
+FROM python:3.7-alpine
 
 # set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+ENV APP_ROOT /code
+ENV CONFIG_ROOT /config
+
+# set work directory
+RUN mkdir ${CONFIG_ROOT}
+RUN mkdir ${APP_ROOT}
 
 # install dependencies
 RUN pip install --upgrade pip
-COPY requirements.txt /code/
-RUN pip install -r requirements.txt
+COPY requirements.txt ${CONFIG_ROOT}/
+RUN pip install -r ${CONFIG_ROOT}/requirements.txt
 
 # copy project
-COPY . /code/
-CMD ["python", "./manage.py runserver 0.0.0.0:8000"]
+WORKDIR ${APP_ROOT}
+COPY . .
+#run application
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
