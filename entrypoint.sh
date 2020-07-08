@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Setup a cron schedule
 echo "20 4 * * * /runtask.sh >> /var/log/cron.log 2>&1
