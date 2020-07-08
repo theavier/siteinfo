@@ -1,6 +1,6 @@
 from rest_framework import viewsets
-from .serializers import SiteSerializer
-from .models import Site
+from .serializers import SiteSerializer, FrameworkSerializer
+from .models import Site, Framework
 from .forms import AddSite
 from django.shortcuts import render, redirect
 from .backbone import queryDomain, whatis_query
@@ -9,6 +9,10 @@ from django.template.defaulttags import register
 class SiteViewSet(viewsets.ModelViewSet):
     queryset = Site.objects.all().order_by('name')
     serializer_class = SiteSerializer
+
+class FrameworkViewSet(viewsets.ModelViewSet):
+    queryset = Framework.objects.all().order_by('site')
+    serializer_class = FrameworkSerializer
 
 def sitelist(request):
     result = Site.objects.all().order_by('name')
