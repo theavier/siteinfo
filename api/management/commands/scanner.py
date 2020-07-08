@@ -1,6 +1,5 @@
 #setup for django
 import os
-import json
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', "siteinfo.settings")
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
@@ -11,32 +10,30 @@ from django.core.management.base import BaseCommand, CommandError
 #endsetup
 from api.backbone import queryDomain, whatis_query
 from api.backbone_services import GetHostProvider
-
-
+import json
 
 class Command(BaseCommand):
     help = 'Runs sitescan tool'
-
     def handle(self, *args, **kwargs):
-        #read sites from site
+        # read sites from site
         querySites = Site.objects.all().order_by('name')
 
-        #loop through sites and scan
+        # loop through sites and scan
         for querysite in querySites:
             print(querysite.url)
-            #enter whatis_query result into database
+            # enter whatis_query result into database
             scan_result = whatis_query(querysite.url)
-            #print(scan_result)
+            # print(scan_result)
             print("Count {0}, type: {1}".format(len(scan_result),type(scan_result)))
             scan_json = json.loads(scan_result)
-            #print(scan_json)
+            # print(scan_json)
             for key, value in scan_json.items():
                 print("Checking site: {0}".format(key))
-                #print("Content:")
-                #print(value)
+                # print("Content:")
+                # print(value)
                 print("Type: {0}".format(type(value)))
                 for app in value:
-                    #check if value already exists, then update existing
+                    # check if value already exists, then update existing
                     insertdata = app.copy()
                     if not insertdata['ver']:
                         insertdata['ver'] = "N/A"

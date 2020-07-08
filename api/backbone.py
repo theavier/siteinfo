@@ -12,6 +12,7 @@ def queryDomain_precheck(domain):
     else:
         return False
 
+
 def queryDomainRun(domain):
     if (sys.platform == "win32"):
         #cmd = "whois64.exe -v %s" % domain
