@@ -14,7 +14,7 @@ RUN mkdir ${APP_ROOT}
 RUN pip install --upgrade pip
 COPY requirements.txt ${CONFIG_ROOT}/
 RUN pip install -r ${CONFIG_ROOT}/requirements.txt
-RUN apt-get update && apt-get -y install crontabs
+RUN apk update && apk add crontabs
 
 # copy project
 WORKDIR ${APP_ROOT}
