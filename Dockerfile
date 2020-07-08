@@ -1,5 +1,5 @@
 # pull official base image
-FROM python:3.7-buster
+FROM python:3.7-alpine
 
 # set environment variables
 ENV PYTHONUNBUFFERED 1
@@ -14,7 +14,7 @@ RUN mkdir ${APP_ROOT}
 RUN pip install --upgrade pip
 COPY requirements.txt ${CONFIG_ROOT}/
 RUN pip install -r ${CONFIG_ROOT}/requirements.txt
-RUN apt-get update && apt-get install -y cron
+RUN apk update && apk add cron
 
 # copy project
 WORKDIR ${APP_ROOT}
