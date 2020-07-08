@@ -1,27 +1,27 @@
-#setup for django
+# setup for django
 import os
 import logging
+import json
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', "siteinfo.settings")
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
 from api.models import Site, Framework, Provider, GeoInfo
-#endsetup
-#setup for management commands
+# endsetup
+# setup for management commands
 from django.core.management.base import BaseCommand, CommandError
-#endsetup
+# endsetup
 from api.backbone import queryDomain, whatis_query
 from api.backbone_services import GetHostProvider, ping_geo
-import json
-logfile = 'siteinfo.log'
-logging.basicConfig(filename=logfile,level=logging.DEBUG)
-logging.debug('This message should go to the log file')
+
 
 class Command(BaseCommand):
     help = 'Runs sitescan tool'
     def handle(self, *args, **kwargs):
         # read sites from site
         querySites = Site.objects.all().order_by('name')
-
+        logfile = 'siteinfo.log'
+        logging.basicConfig(filename=logfile,level=logging.DEBUG)
+        logging.debug('This message should go to the log file')
         # loop through sites and scan
         for querysite in querySites:
             print(querysite.url)
