@@ -1,15 +1,18 @@
 #setup for django
 import os
+import json
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', "siteinfo.settings")
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
-from api.models import Site, Framework
+from api.models import Site, Framework, Provider
 #endsetup
 #setup for management commands
 from django.core.management.base import BaseCommand, CommandError
 #endsetup
 from api.backbone import queryDomain, whatis_query
-import json
+from api.backbone_services import GetHostProvider
+
+
 
 class Command(BaseCommand):
     help = 'Runs sitescan tool'
@@ -21,7 +24,7 @@ class Command(BaseCommand):
         #loop through sites and scan
         for querysite in querySites:
             print(querysite.url)
-            #enter scanresult into database
+            #enter whatis_query result into database
             scan_result = whatis_query(querysite.url)
             #print(scan_result)
             print("Count {0}, type: {1}".format(len(scan_result),type(scan_result)))
@@ -45,9 +48,26 @@ class Command(BaseCommand):
                         elif obj:
                             print('updated existing databasentry')
                         else:
-                            print("Coulnd't update at all")
+                            print("Couldn't update at all")
                     except BaseException as e:
                         print("Couldn't insert: {0}. \n Cause: {1}".format(insertdata,e))
+            # check provider
+            print("Checking provider for {0}".format(querysite.url))
+            hostprovider = GetHostProvider(address=querysite.url)
+            print("Provider: {0}, Ip: {1}, source: {2}".format(hostprovider.provider,hostprovider.ip
+                                                               ,hostprovider.source))
+            # add provider to database
+            provider_insertdata = {'provider': hostprovider.provider, 'ip': hostprovider.ip, 'source': hostprovider.source}
+            try:
+                provider_obj, provider_created = Provider.objects.update_or_create(site=querysite, defaults=provider_insertdata)
+                if provider_created:
+                    print('created new providerdatabase for {0}'.format(querysite.url))
+                else:
+                    print('Updated existing providerentry')
+            except BaseException as e:
+                print("Couldn't insert {0}. \n Cause: {1}".format(provider_insertdata, e))
+
+
 
 
 

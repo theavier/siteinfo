@@ -81,3 +81,4 @@ def whatis_fake():
 #print(testresult)
 #testresult = whatis_query("www.dataman.se")
 #print(testresult)
+
