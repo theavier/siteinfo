@@ -1,5 +1,6 @@
 #setup for django
 import os
+import logging
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', "siteinfo.settings")
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
@@ -11,6 +12,9 @@ from django.core.management.base import BaseCommand, CommandError
 from api.backbone import queryDomain, whatis_query
 from api.backbone_services import GetHostProvider, ping_geo
 import json
+logfile = 'siteinfo.log'
+logging.basicConfig(filename=logfile,level=logging.DEBUG)
+logging.debug('This message should go to the log file')
 
 class Command(BaseCommand):
     help = 'Runs sitescan tool'
