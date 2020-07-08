@@ -58,8 +58,24 @@ class GetHostProvider:
             self.ip = "N/A"
 
 
+def ping_geo(address):
+    _ip, _ip_valid = get_ip(address)
+    url = "http://www.geoplugin.net/json.gp?ip="
+    uri = url + _ip
+    response = requests.get(uri, headers={"accept": "application/json"})
+    data = json.loads(response.text)
+    return_data = {'city': data['geoplugin_city'],
+                   'countrycode': data['geoplugin_countryCode'],
+                   'country': data['geoplugin_countryName'],
+                   'latitude': data['geoplugin_latitude'],
+                   'longitude': data['geoplugin_longitude']}
+    return return_data
 
-#ip = '81.170.175.179'
+
+
+myip = '81.170.175.179'
+result = ping_geo(myip)
+print(result)
 #ipArin = '192.0.78.9'
 #urladdress = "www.dataman.se"
 #myhost = GetHostProvider(ip=ipArin)
@@ -71,3 +87,4 @@ class GetHostProvider:
 #hostname = socket.gethostbyname(urladdress)
 #print(socket.gethostname())
 #print(hostname)
+

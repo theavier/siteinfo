@@ -3,13 +3,13 @@ import os
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', "siteinfo.settings")
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
-from api.models import Site, Framework, Provider
+from api.models import Site, Framework, Provider, GeoInfo
 #endsetup
 #setup for management commands
 from django.core.management.base import BaseCommand, CommandError
 #endsetup
 from api.backbone import queryDomain, whatis_query
-from api.backbone_services import GetHostProvider
+from api.backbone_services import GetHostProvider, ping_geo
 import json
 
 class Command(BaseCommand):
@@ -63,6 +63,19 @@ class Command(BaseCommand):
                     print('Updated existing providerentry')
             except BaseException as e:
                 print("Couldn't insert {0}. \n Cause: {1}".format(provider_insertdata, e))
+
+            # check geodata
+            geo_insertdata = ping_geo(querysite.url)
+            # add geodata to database
+            print(geo_insertdata)
+            try:
+                geo_obj, geo_created = GeoInfo.objects.update_or_create(site=querysite, defaults=geo_insertdata)
+                if provider_created:
+                    print('created new providerdatabase for {0}'.format(querysite.url))
+                else:
+                    print('Updated existing providerentry')
+            except BaseException as e:
+                print("Couldn't insert {0}. \n Cause: {1}".format(geo_insertdata, e))
 
 
 

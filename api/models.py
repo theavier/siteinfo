@@ -29,3 +29,16 @@ class Provider(models.Model):
 
     def __str__(self):
         return self.provider
+
+
+class GeoInfo(models.Model):
+    site = models.ForeignKey(Site, on_delete=models.CASCADE)
+    city = models.CharField(max_length=100)
+    countrycode = models.CharField(max_length=100)
+    country = models.CharField(max_length=100)
+    latitude = models.CharField(max_length=100)
+    longitude = models.CharField(max_length=100)
+    date = models.DateField(default=timezone.now)
+
+    def __str__(self):
+        return self.country
