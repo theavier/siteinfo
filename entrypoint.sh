@@ -7,5 +7,13 @@ echo "20 4 * * * /runtask.sh >> /var/log/cron.log 2>&1
 crontab scheduler.txt
 cron -f
 
+# setup logging to docker
+ln -sf /dev/stdout /code/siteinfo.log
+
+#update database
+echo "Updating database..."
+python manage.py makemigrations api
+python manage.py migrate
+
 echo "Docker container has been started"
 python manage.py runserver 0.0.0.0:8000

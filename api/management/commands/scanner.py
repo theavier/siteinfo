@@ -20,8 +20,8 @@ class Command(BaseCommand):
         # read sites from site
         querySites = Site.objects.all().order_by('name')
         logfile = 'siteinfo.log'
-        logging.basicConfig(filename=logfile,level=logging.DEBUG)
-        logging.debug('This message should go to the log file')
+        logging.basicConfig(filename=logfile,level=logging.INFO)
+        logging.info('Starting logfile')
         # loop through sites and scan
         for querysite in querySites:
             print(querysite.url)

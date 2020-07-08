@@ -14,17 +14,11 @@ RUN mkdir ${APP_ROOT}
 RUN pip install --upgrade pip
 COPY requirements.txt ${CONFIG_ROOT}/
 RUN pip install -r ${CONFIG_ROOT}/requirements.txt
-RUN pip install gunicorn 
+RUN apt-get update && apt-get -y install crontabs
 
 # copy project
 WORKDIR ${APP_ROOT}
 COPY . .
-#update database
-RUN python manage.py makemigrations api
-RUN python manage.py migrate
 #run application
-#ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-#ENTRYPOINT ["gunicorn", --"bind", "8000", "siteinfo.wsgi:application" 
-RUN chmod +x ./entrypoint.sh
-RUN chmod +x ./runtask.sh
+RUN chmod +x ./entrypoint.sh && chmod +x ./runtask.sh
 ENTRYPOINT ["./entrypoint.sh"]
