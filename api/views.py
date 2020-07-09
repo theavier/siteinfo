@@ -65,8 +65,8 @@ def test(request):
 def startscan(request):
     results = scansites()
     error = None
-    results = "Scan has run..."
-    return render(request, 'api/result.html', {'error': error, 'results': results})
+    result = "Scan has run..."
+    return render(request, 'api/result.html', {'error': error, 'one_result': result})
 
 @register.filter
 def get_item(dictionary, key):

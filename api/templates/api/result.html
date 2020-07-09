@@ -11,12 +11,17 @@
 </div>
 {% endif %}
 
-{% if results %}
+{% if one_result or many_results %}
 <div class="alert alert-success" roles="alert">
-{{ results }}
-{% for result in results %}
+{%if many_results %}
+{% for result in many_results %}
     {{ result }}
  {% endfor %}
+{% endif %}
+
+{% if one_result %}
+    {{ one_result }}
+{% endif %}
 </div>
 {% else %}
 <div class="alert alert-warning" roles="alert">
