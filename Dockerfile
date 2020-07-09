@@ -14,6 +14,7 @@ RUN mkdir ${APP_ROOT}
 RUN pip install --upgrade pip
 COPY requirements.txt ${CONFIG_ROOT}/
 RUN pip install -r ${CONFIG_ROOT}/requirements.txt
+RUN pip install gunicorn
 #RUN apk update && apk add cron
 
 # copy project

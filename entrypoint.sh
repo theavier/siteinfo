@@ -15,5 +15,8 @@ echo "Updating database..."
 python manage.py makemigrations api
 python manage.py migrate
 
+echo "Updating static files"
+python manage.py collectstatic
+
 echo "Docker container has been started"
 python manage.py runserver 0.0.0.0:8000
