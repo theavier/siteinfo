@@ -12,21 +12,25 @@ from django.core.management.base import BaseCommand, CommandError
 # endsetup
 from api.backbone import queryDomain, whatis_query
 from api.backbone_services import GetHostProvider, ping_geo
-
+from django.utils.encoding import punycode
 
 class Command(BaseCommand):
+    print('test"')
     help = 'Runs sitescan tool'
     def handle(self, *args, **kwargs):
         # read sites from site
         querySites = Site.objects.all().order_by('name')
+        print("Found {0} sites".format(len(querySites)))
         logfile = 'siteinfo.log'
         logging.basicConfig(filename=logfile,level=logging.INFO)
         logging.info('Starting logfile')
         # loop through sites and scan
         for querysite in querySites:
-            print(querysite.url)
+            print("Url: {0}".format(querysite.url))
+            url_encoded = punycode(querysite.url)
+            print("Encoded url: {0}".format(url_encoded))
             # enter whatis_query result into database
-            scan_result = whatis_query(querysite.url)
+            scan_result = whatis_query(url_encoded)
             # print(scan_result)
             print("Count {0}, type: {1}".format(len(scan_result),type(scan_result)))
             scan_json = json.loads(scan_result)
@@ -53,8 +57,8 @@ class Command(BaseCommand):
                     except BaseException as e:
                         print("Couldn't insert: {0}. \n Cause: {1}".format(insertdata,e))
             # check provider
-            print("Checking provider for {0}".format(querysite.url))
-            hostprovider = GetHostProvider(address=querysite.url)
+            print("Checking provider for {0}".format(url_encoded))
+            hostprovider = GetHostProvider(address=url_encoded)
             print("Provider: {0}, Ip: {1}, source: {2}".format(hostprovider.provider,hostprovider.ip
                                                                ,hostprovider.source))
             # add provider to database
@@ -62,25 +66,24 @@ class Command(BaseCommand):
             try:
                 provider_obj, provider_created = Provider.objects.update_or_create(site=querysite, defaults=provider_insertdata)
                 if provider_created:
-                    print('created new providerdatabase for {0}'.format(querysite.url))
+                    print('created new providerdatabase for {0}'.format(url_encoded))
                 else:
                     print('Updated existing providerentry')
             except BaseException as e:
                 print("Couldn't insert {0}. \n Cause: {1}".format(provider_insertdata, e))
 
             # check geodata
-            geo_insertdata = ping_geo(querysite.url)
+            geo_insertdata = ping_geo(url_encoded)
             # add geodata to database
             print(geo_insertdata)
             try:
                 geo_obj, geo_created = GeoInfo.objects.update_or_create(site=querysite, defaults=geo_insertdata)
                 if provider_created:
-                    print('created new providerdatabase for {0}'.format(querysite.url))
+                    print('created new providerdatabase for {0}'.format(url_encoded))
                 else:
                     print('Updated existing providerentry')
             except BaseException as e:
                 print("Couldn't insert {0}. \n Cause: {1}".format(geo_insertdata, e))
-
 
 
 

@@ -51,9 +51,6 @@ def queryDomain(domain,format="json"):
     else:
         return "Unsupported domain"
 
-#result = queryDomain("alnet.se")
-#print(result)
-#print(BASE_DIR)
 
 def whatis_query(domain):
     if not domain.startswith("https") and not domain.startswith("http"):
@@ -78,8 +75,4 @@ def whatis_fake():
         data = json.load(json_file)
     return data
 
-#testresult = whatis_fake()
-#print(testresult)
-#testresult = whatis_query("www.dataman.se")
-#print(testresult)
 

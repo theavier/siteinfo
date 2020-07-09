@@ -71,20 +71,3 @@ def ping_geo(address):
                    'longitude': data['geoplugin_longitude']}
     return return_data
 
-
-
-myip = '81.170.175.179'
-result = ping_geo(myip)
-print(result)
-#ipArin = '192.0.78.9'
-#urladdress = "www.dataman.se"
-#myhost = GetHostProvider(ip=ipArin)
-#myhost = GetHostProvider(address="https://www.dataman.se")
-#print("myresult: {0}, second: {1}, source: {2}".format(myhost.ip, myhost.provider,myhost.source))
-
-
-#urladdress = "www.dataman.se"
-#hostname = socket.gethostbyname(urladdress)
-#print(socket.gethostname())
-#print(hostname)
-
