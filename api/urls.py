@@ -15,5 +15,6 @@ urlpatterns = [
     path('test/', views.test, name='test'),
     path('list/', views.sitelist, name='sitelist'),
     path('add/', views.site_add, name='add'),
-    path('whatis/<siteurl>', views.whatis, name='whatis'),    
+    path('whatis/<siteurl>', views.whatis, name='whatis'),
+    path('startscan/', views.startscan, name='startscan'),
 ]

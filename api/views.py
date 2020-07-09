@@ -5,6 +5,7 @@ from .forms import AddSite
 from django.shortcuts import render, redirect
 from .backbone import queryDomain, whatis_query
 from django.template.defaulttags import register
+from .scansites import scansites
 
 class SiteViewSet(viewsets.ModelViewSet):
     queryset = Site.objects.all().order_by('name')
@@ -61,6 +62,11 @@ def test(request):
     return render(request, 'api/test.html')
 
 
+def startscan(request):
+    results = scansites()
+    error = None
+    results = "Scan has run..."
+    return render(request, 'api/result.html', {'error': error, 'results': results})
 
 @register.filter
 def get_item(dictionary, key):
