@@ -19,4 +19,5 @@ echo "Updating static files"
 python manage.py collectstatic
 
 echo "Docker container has been started"
-python manage.py runserver 0.0.0.0:8000
+#python manage.py runserver 0.0.0.0:8000
+gunicorn --bind :8000 --workers 3 siteinfo.wsgi:application
