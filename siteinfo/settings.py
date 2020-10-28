@@ -25,7 +25,13 @@ if not os.path.exists(DATABASE_DIR):
 SECRET_KEY = os.environ.get('SECRET_KEY', os.urandom(32))
 
 #DEBUG = os.environ.get('DEBUG', True)
-DEBUG = False
+#DEBUG = False
+if os.environ.get('DEBUG_VALUE'):
+    DEBUG = os.environ.get('DEBUG_VALUE') == 'True'
+else:
+    DEBUG = True
+
+
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '127.0.0.1').split(',')
 
 
